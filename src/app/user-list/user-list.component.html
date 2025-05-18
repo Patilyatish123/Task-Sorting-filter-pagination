@@ -1,0 +1,83 @@
+
+<div class="container ">
+  <div class="card shadow-sm p-4">
+    <h3 class="text-center mb-4 text-primary fw-bold">Task - <span class="text-secondairy">Filter, Sort & Pagination </span></h3>
+
+    <div class="row mb-3">
+      <div class="col-md-6 offset-md-3">
+        <input class="form-control shadow-sm" placeholder="Search by name or email" [(ngModel)]="searchTerm" />
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover text-center align-middle">
+        <thead class="table-light   " >
+         <tr>
+  <th 
+    class="text-primary fw-semibold" 
+    style="cursor: pointer;" 
+    (click)="changeSort('name')"
+  >
+    Name
+    <i class="bi ms-1"
+       [ngClass]="{
+         'bi-sort-alpha-down': sortColumn === 'name' && sortDirection === 'asc',
+         'bi-sort-alpha-up': sortColumn === 'name' && sortDirection === 'desc',
+         'bi-caret-down': sortColumn !== 'name'
+       }"></i>
+  </th>
+
+  <th 
+    class="text-primary fw-semibold" 
+    style="cursor: pointer;" 
+    (click)="changeSort('age')"
+  >
+    Age
+    <i class="bi ms-1"
+       [ngClass]="{
+         'bi-sort-numeric-up': sortColumn === 'age' && sortDirection === 'asc',
+         'bi-sort-numeric-down': sortColumn === 'age' && sortDirection === 'desc',
+         'bi-caret-down': sortColumn !== 'age'
+       }"></i>
+  </th>
+
+  <th 
+    class="text-primary fw-semibold" 
+    style="cursor: pointer;" 
+    (click)="changeSort('email')"
+  >
+    Email
+    <i class="bi ms-1"
+       [ngClass]="{
+         'bi-sort-alpha-down': sortColumn === 'email' && sortDirection === 'asc',
+         'bi-sort-alpha-up-alt': sortColumn === 'email' && sortDirection === 'desc',
+         'bi-caret-down': sortColumn !== 'email'
+       }"></i>
+  </th>
+</tr>
+
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of filteredUsers">
+            <td>{{ user.name }}</td>
+            <td>{{ user.age }}</td>
+            <td>{{ user.email }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+   <nav class="d-flex justify-content-center mt-4">
+  <ul class="pagination pagination-md">
+    <li 
+      class="page-item" 
+      *ngFor="let page of [].constructor(totalPages); let i = index"
+      [ngClass]="{ 'active': currentPage === i + 1 }"
+    >
+      <a class="page-link" style="cursor: pointer;" (click)="goToPage(i + 1)">{{ i + 1 }}</a>
+    </li>
+  </ul>
+</nav>
+
+  </div>
+</div>
